@@ -40,7 +40,12 @@ namespace myTiles {
 }
 scene.onOverlapTile(SpriteKind.Player, myTiles.tile1, function (sprite, location) {
     info.changeScoreBy(1)
+    music.baDing.play()
     tiles.setTileAt(location, sprites.dungeon.hazardLava0)
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairNorth, function (sprite, location) {
+    game.over(true)
+    effects.confetti.endScreenEffect()
 })
 function startGame () {
     info.setScore(0)
@@ -92,10 +97,6 @@ function startGame () {
     numJumps = 0
     info.startCountdown(10)
 }
-scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.stairNorth, function (sprite, location) {
-    game.over(true)
-    effects.confetti.endScreenEffect()
-})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (numJumps < 1) {
         gary.vy = -200
@@ -226,7 +227,7 @@ scene.setBackgroundImage(img`
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 `)
-game.showLongText("Welcome! Help Gary the Snail acquire coins for points! Do it before time runs out!", DialogLayout.Bottom)
+game.showLongText("Help Gary the Snail collect the coins and reach the stairs by the end of the timer!", DialogLayout.Bottom)
 startGame()
 forever(function () {
     if (gary.isHittingTile(CollisionDirection.Bottom)) {
